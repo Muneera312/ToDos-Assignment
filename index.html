@@ -6,13 +6,25 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
-<body>
+<body  style="background: linear-gradient(135deg,#74ebd5,#9face6);">
+    <!-- <div class="card h-200"> -->
     <h1 class="text-center">Todo's</h1>
-    <div class="d-flex gap-2 align-items-center justify-content-center" > 
+    <div class="d-flex gap-2 align-items-center justify-content-center"  > 
         <input id="inputTitle" type="text" placeholder="enter the title">
-        <button class="btn btn-primary" onclick="handleAdd()">Add</button>
+        <button class="btn btn-primary" onclick="handleAdd()" >Add</button>
     </div>
-    <div  id= "todosparent"class="d-flex flex-column gap-2 align-items-center justify-content-center" > 
+   <div class="d-flex justify-content-center mt-4">
+    
+    <div class="card shadow p-4" style="width: 500px; background-color:#f8f9fa;">
+        
+        <h4 class="text-center mb-3">My Todos</h4>
+
+        <div id="todosparent" class="d-flex flex-column gap-2">
+        </div>
+
+    </div>
+
+</div>
 
 
 
@@ -20,6 +32,7 @@
 
 
 
+    </div>
     </div>
     <script>
         console.log("js is running");
@@ -29,14 +42,14 @@
 
 
          let todos= [
-            {
-                title:"wake up at 6 am",
-                completed :true
-            },
-            { 
-                 title:"go to gym at 7 am",
-                 completed : false
-            }
+            // {
+            //     title:"wake up at 6 am",
+            //     completed :false
+            // },
+            // { 
+            //      title:"go to gym at 7 am",
+            //      completed : false
+            // }
     ]
     
         
@@ -46,20 +59,32 @@
         function showtodos(){
 
               todospaent.innerHTML='';
-
+              if(todos.length === 0){
+    todospaent.innerHTML = `
+      <p class="text-center text-muted">
+        No Todos Added
+      </p>
+    `;
+    return;
+  }
 
             todos.map(( ele, index)=>{
                  todospaent.innerHTML = todospaent.innerHTML+  ` 
-        <div>
+     <div class="card p-3 shadow-sm" 
+         style="width: 350px; 
+                background-color: ${ele.completed ? '#d4edda' : '#f8d7da'}">
+
+        <div class="d-flex justify-content-between align-items-center"> 
+         
     <input type="checkbox" onchange="handleCheckbox(${index})" ${ele.completed ? "checked":''}>
-    <span class="${ele.completed ? "text-decoration-line-through":''}">
+    <span class="ms-2 ${ele.completed ? "text-decoration-line-through":''}">
         ${ele.title}
     </span>
-    <button class="btn btn-warning " onclick = "handleEdit(${index})">
+    <button class="btn btn-warning bt-sm " onclick = "handleEdit(${index})">
         edit
     </button>
-    <button class="btn btn-danger" onclick= "handleDelete(${index})"> delete </button>
-
+    <button class="btn btn-danger bt-sm " onclick= "handleDelete(${index})"> delete </button>
+</div>
 </div>`
             } )
 
@@ -77,6 +102,7 @@
         todos.push({
              title: inputTitle.value
         })
+        // ${ele.inputTitle.value ? 'inputTitle.value': 'please enter the title'}
          inputTitle.value=''; 
         showtodos()
 
@@ -111,5 +137,4 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </body>
-
 </html>
